@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-
-import '../model/movie.dart';
 import '../screens/movie_details_screen.dart';
 
 class VerticalListItem extends StatelessWidget {
+  final url_header = 'https://image.tmdb.org/t/p/w500';
   final int index;
-  VerticalListItem(this.index);
+  String url;
+  List item = [];
+  VerticalListItem(this.index, this.item) {
+    url = url_header + item[index].posterPath;
+    print(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +20,13 @@ class VerticalListItem extends StatelessWidget {
             Navigator.of(context).pushNamed(
               MovieDetailsScreen.routeName,
               arguments: {
-                'id': bestMovieList[index].id,
-                'title': bestMovieList[index].title,
-                'imageUrl': bestMovieList[index].imageUrl,
-                'description': bestMovieList[index].description,
-                'rating': bestMovieList[index].rating,
-                'year': bestMovieList[index].year,
-                'duration': bestMovieList[index].duration,
+                'id': item[index].id.toString(),
+                'title': item[index].title.toString(),
+                'imageUrl': url.toString(),
+                'description': item[index].overview.toString(),
+                'rating': item[index].voteAverage.toString(),
+                'year': '2020',
+                'duration': item[index].voteCount.toString(),
               },
             );
           },
@@ -31,7 +35,7 @@ class VerticalListItem extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Hero(
-                  tag: bestMovieList[index].id,
+                  tag: item[index].id,
                   child: Container(
                     height: 150,
                     width: 100,
@@ -43,35 +47,39 @@ class VerticalListItem extends StatelessWidget {
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          bestMovieList[index].imageUrl,
+                          url,
                         ),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  height: 150,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        bestMovieList[index].title,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    height: 150,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          item[index].title,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: 240,
-                        child: Text(
-                          bestMovieList[index].description,
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                    ],
+                        Container(
+                          width: 240,
+                          child: Text(
+                            item[index].overview,
+                            maxLines: 6,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

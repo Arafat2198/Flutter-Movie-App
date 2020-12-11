@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model/movie.dart';
-import '../screens/movie_details_screen.dart';
+// import '../screens/movie_details_screen.dart';
 
 class TopRatedListItem extends StatelessWidget {
   final int index;
@@ -13,20 +13,20 @@ class TopRatedListItem extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       width: 160,
       child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            MovieDetailsScreen.routeName,
-            arguments: {
-              'id': topRatedMovieList[index].id,
-              'title': topRatedMovieList[index].title,
-              'imageUrl': topRatedMovieList[index].imageUrl,
-              'description': topRatedMovieList[index].description,
-              'rating': topRatedMovieList[index].rating,
-              'year': topRatedMovieList[index].year,
-              'duration': topRatedMovieList[index].duration,
-            },
-          );
-        },
+        // onTap: () {
+        //   Navigator.of(context).pushNamed(
+        //     MovieDetailsScreen.routeName,
+        //     arguments: {
+        //       'id': topRatedMovieList[index].id,
+        //       'title': topRatedMovieList[index].title,
+        //       'imageUrl': topRatedMovieList[index].imageUrl,
+        //       'description': topRatedMovieList[index].description,
+        //       'rating': topRatedMovieList[index].rating,
+        //       'year': topRatedMovieList[index].year,
+        //       'duration': topRatedMovieList[index].duration,
+        //     },
+        //   );
+        // },
         child: Column(
           children: <Widget>[
             Card(

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import '../screens/movie_details_screen.dart';
 
-import '../model/movie.dart';
+// import '../model/movie.dart';
 
+// ignore: must_be_immutable
 class HorizontalListItem extends StatelessWidget {
+  final urlheader = 'https://image.tmdb.org/t/p/w500';
   final int index;
-  HorizontalListItem(this.index);
+  String url;
+  List item = [];
+  HorizontalListItem(this.index, this.item) {
+    url = urlheader + item[index].posterPath;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +23,13 @@ class HorizontalListItem extends StatelessWidget {
           Navigator.of(context).pushNamed(
             MovieDetailsScreen.routeName,
             arguments: {
-              'id': movieList[index].id,
-              'title': movieList[index].title,
-              'imageUrl': movieList[index].imageUrl,
-              'description': movieList[index].description,
-              'rating': movieList[index].rating,
-              'year': movieList[index].year,
-              'duration': movieList[index].duration,
+              'id': item[index].id.toString(),
+              'title': item[index].title.toString(),
+              'imageUrl': url.toString(),
+              'description': item[index].overview.toString(),
+              'rating': item[index].voteAverage.toString(),
+              'year': '2020',
+              'duration': item[index].voteCount.toString(),
             },
           );
         },
@@ -32,14 +38,14 @@ class HorizontalListItem extends StatelessWidget {
             Card(
               elevation: 10,
               child: Hero(
-                tag: movieList[index].id,
+                tag: item[index].id,
                 child: Container(
                   height: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(movieList[index].imageUrl),
+                      image: NetworkImage(url),
                     ),
                   ),
                 ),
@@ -49,7 +55,7 @@ class HorizontalListItem extends StatelessWidget {
               height: 10,
             ),
             Text(
-              movieList[index].title,
+              item[index].title,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

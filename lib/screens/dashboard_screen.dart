@@ -1,152 +1,202 @@
 import 'package:flutter/material.dart';
-
-import '../model/movie.dart';
+import 'dart:async';
 import '../widget/side_bar.dart';
-import '../widget/top_rated_list_item.dart';
 import '../widget/vertical_list_item.dart';
 import '../widget/horizontal_list_item.dart';
+import '../Services/Dashboard_Screen_Service.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  // ignore: must_call_super
+  void initState() {
+    fetch();
+  }
+
+  final up = new UpcomingMovies();
+
+  var upcoming = [];
+
+  var top = new TopMovies();
+
+  var topmovies = [];
+
+  var pop = new PopularMovies();
+
+  var popular = [];
+
+  Future fetch() async {
+    upcoming = await up.getData();
+    print(upcoming[0].title);
+
+    if (upcoming.length == 0) {
+      print("Upcoming Movie API Extraction Unsuccessfull");
+    } else {
+      print(' Upcoming Movie API Extraction Succeess');
+    }
+
+    topmovies = await top.getData();
+    print(topmovies[0].title);
+
+    if (topmovies.length == 0) {
+      print("Top Movie API Extraction Unsuccessfull");
+    } else {
+      print(' Top Movie Movie API Extraction Succeess');
+    }
+
+    popular = await pop.getData();
+    print(popular[0].title);
+
+    if (popular.length == 0) {
+      print("Popular Movie API Extraction Unsuccessfull");
+    } else {
+      print(' Popular Movie API Extraction Succeess');
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        title: Text(
-          'Pop-Corn Flix',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.deepOrange,
+          title: Text(
+            'Pop-Corn fLiX',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+            ),
           ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.green,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                      "https://www.itl.cat/pngfile/big/242-2428811_photo-wallpaper-lights-light-street-night-city-night.jpg"),
-                ),
-              ),
-              child: Container(
-                child: Column(
-                  children: [],
-                ),
-              ),
-            ),
-            CustomListTile(Icons.person, 'Profile', () => {}),
-            CustomListTile(Icons.tv, 'TV Shows', () => {}),
-            CustomListTile(Icons.theaters_outlined, 'Movies', () => {}),
-            CustomListTile(Icons.bookmark_border, 'My List ', () => {}),
-            CustomListTile(Icons.logout, 'Log Out ', () => {}),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Recommended',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  FlatButton(
-                    child: Text('View All'),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 280,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: movieList.length,
-                itemBuilder: (ctx, i) => HorizontalListItem(i),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Best of 2019',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  FlatButton(
-                    child: Text('View All'),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 500,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: bestMovieList.length,
-                itemBuilder: (ctx, i) => VerticalListItem(i),
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Top Rated Movies',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  FlatButton(
-                    child: Text('View All'),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 280,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: topRatedMovieList.length,
-                itemBuilder: (ctx, i) => TopRatedListItem(i),
-              ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
             ),
           ],
         ),
-      ),
-    );
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        "https://www.itl.cat/pngfile/big/242-2428811_photo-wallpaper-lights-light-street-night-city-night.jpg"),
+                  ),
+                ),
+                child: Container(
+                  child: Column(
+                    children: [],
+                  ),
+                ),
+              ),
+              CustomListTile(Icons.person, 'Profile', () => {}),
+              CustomListTile(Icons.tv, 'TV Shows', () => {}),
+              CustomListTile(Icons.theaters_outlined, 'Movies', () => {}),
+              CustomListTile(Icons.bookmark_border, 'My List ', () => {}),
+              CustomListTile(Icons.logout, 'Log Out ', () => {}),
+            ],
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Upcoming',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('View All'),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: upcoming.length,
+                  itemBuilder: (ctx, i) => HorizontalListItem(i, upcoming),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Best of 2020',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('View All'),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 1000,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: popular.length,
+                  itemBuilder: (ctx, i) => VerticalListItem(i, popular),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Top Rated Movies',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('View All'),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: topmovies.length,
+                  itemBuilder: (ctx, i) => HorizontalListItem(i, topmovies),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

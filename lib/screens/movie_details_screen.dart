@@ -1,15 +1,41 @@
 import 'package:flutter/material.dart';
+import '../widget/review_card.dart';
+import '../services/Review_Service.dart';
+import 'dart:async';
 
-class MovieDetailsScreen extends StatelessWidget {
+class MovieDetailsScreen extends StatefulWidget {
   static const routeName = '/movie-details';
+
+  @override
+  _MovieDetailsScreenState createState() => _MovieDetailsScreenState();
+}
+
+class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+  // ignore: non_constant_identifier_names
+  var movie_review = [];
+  var id;
+
+  Future fetch() async {
+    print(id);
+    final rev = new MovieReview(id);
+    movie_review = await rev.getData();
+    if (movie_review.length == 0) {
+      print(" Movie Review API Extraction Unsuccessfull");
+    } else {
+      print('Movie Review API Extraction Succeess');
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
-    final id = routeArgs['id'];
+    id = routeArgs['id'];
     final rating = routeArgs['rating'];
-
+    if (movie_review.length == 0) {
+      fetch();
+    }
     return Scaffold(
       backgroundColor: Color(0xfff4f4f4),
       appBar: AppBar(
@@ -155,6 +181,37 @@ class MovieDetailsScreen extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
+            SizedBox(
+              height: 20,
+            ),
+            movie_review.length != 0
+                // Custom Review Card
+                ? ListView.builder(
+                    // physics: tells it to prevent the list from being scrollable
+                    physics:
+                        NeverScrollableScrollPhysics(), // As we already have a Scrollable List hence we dont need to add the scroll feature for this builder again
+                    shrinkWrap:
+                        true, // Important Property as it tells the List view Builder to only take the space it requires
+                    itemCount: movie_review.length,
+                    itemBuilder: (context, index) {
+                      return ReviewCard(movie_review, index);
+                    },
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'No Reviews Present',
+                          style: TextStyle(
+                            color: Colors.indigo,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
           ],
         ),
       ),

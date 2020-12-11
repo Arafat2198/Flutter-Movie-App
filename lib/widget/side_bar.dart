@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
-  IconData icon;
-  String text;
-  Function onTap; // For a Button to do something hence we have added this
+  final IconData icon;
+  final String text;
+  final Function onTap; // For a Button to do something hence we have added this
 
   CustomListTile(this.icon, this.text, this.onTap);
 
