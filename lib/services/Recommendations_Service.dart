@@ -17,7 +17,7 @@ class MovieRecommendations {
       final movieRecommendations = movieRecommendationsFromJson(response.body);
       return movieRecommendations.results;
     } else {
-      // print('Movie Recommendation Api service worked ');
+      // print('Movie Recommendation Api service failed ');
       return [];
     }
   }
@@ -37,7 +37,7 @@ class TvRecommendations {
       final tvRecommendations = tvRecommendationsFromJson(response.body);
       return tvRecommendations.results;
     } else {
-      print('TV Recommendation Api service worked ');
+      print('TV Recommendation Api service failed ');
       return [];
     }
   }
