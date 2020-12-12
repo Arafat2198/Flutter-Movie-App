@@ -1,0 +1,203 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+import '../widget/side_bar.dart';
+import '../services/TvShow_Dashboard_Screen_Service.dart';
+import '../widget/horizontal_list_item.dart';
+import '../widget/vertical_list_item.dart';
+
+class TvDashboardScreen extends StatefulWidget {
+  static const routeName = '/tv-dashboard';
+  @override
+  _TvDashboardScreenState createState() => _TvDashboardScreenState();
+}
+
+class _TvDashboardScreenState extends State<TvDashboardScreen> {
+  // ignore: must_call_super
+  void initState() {
+    fetch();
+  }
+
+  final up = new UpcomingTv();
+
+  var upcoming = [];
+
+  var top = new TopTv();
+
+  var toptv = [];
+
+  var pop = new PopularTv();
+
+  var popular = [];
+
+  Future fetch() async {
+    upcoming = await up.getData();
+    // print(upcoming[0].name);
+
+    // if (upcoming.length == 0) {
+    //   print("Upcoming TV Show API Extraction Unsuccessfull");
+    // } else {
+    //   print(' Ongoing TV Show API Extraction Succeess');
+    // }
+
+    toptv = await top.getData();
+    // print(toptv[0].name);
+
+    // if (toptv.length == 0) {
+    //   print("Top TV Show API Extraction Unsuccessfull");
+    // } else {
+    //   print(' Top TV Show Movie API Extraction Succeess');
+    // }
+
+    popular = await pop.getData();
+    // print(popular[0].name);
+
+    // if (popular.length == 0) {
+    //   print("Popular TV Show API Extraction Unsuccessfull");
+    // } else {
+    //   print(' Popular TV Show API Extraction Succeess');
+    // }
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.deepOrange,
+          title: Text(
+            'Pop-Corn fLiX',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+            ),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
+          ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        "https://www.itl.cat/pngfile/big/242-2428811_photo-wallpaper-lights-light-street-night-city-night.jpg"),
+                  ),
+                ),
+                child: Container(
+                  child: Column(
+                    children: [],
+                  ),
+                ),
+              ),
+              CustomListTile(Icons.person, 'Profile', () => {}),
+              CustomListTile(Icons.tv, 'TV Shows', () => {}),
+              CustomListTile(Icons.theaters_outlined, 'Movies', () => {}),
+              CustomListTile(Icons.bookmark_border, 'My List ', () => {}),
+              CustomListTile(Icons.logout, 'Log Out ', () => {}),
+            ],
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Ongoing Shows',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('View All'),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 280,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: upcoming.length,
+                  itemBuilder: (ctx, i) =>
+                      HorizontalListItem(i, upcoming, upcoming[i].name, 'tv'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Best of 2020',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('View All'),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 1000,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: popular.length,
+                  itemBuilder: (ctx, i) =>
+                      VerticalListItem(i, popular, popular[i].name, 'tv'),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Top Rated Shows',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('View All'),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: toptv.length,
+                  itemBuilder: (ctx, i) =>
+                      HorizontalListItem(i, toptv, toptv[i].name, 'tv'),
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+}

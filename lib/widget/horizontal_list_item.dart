@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/movie_details_screen.dart';
+import '../screens/tv_details_screen.dart';
 
 // import '../model/movie.dart';
 
@@ -7,9 +8,11 @@ import '../screens/movie_details_screen.dart';
 class HorizontalListItem extends StatelessWidget {
   final urlheader = 'https://image.tmdb.org/t/p/w500';
   final int index;
+  final name;
   String url;
+  String type;
   List item = [];
-  HorizontalListItem(this.index, this.item) {
+  HorizontalListItem(this.index, this.item, this.name, this.type) {
     url = urlheader + item[index].posterPath;
   }
 
@@ -18,21 +21,36 @@ class HorizontalListItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       width: 160,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            MovieDetailsScreen.routeName,
-            arguments: {
-              'id': item[index].id.toString(),
-              'title': item[index].title.toString(),
-              'imageUrl': url.toString(),
-              'description': item[index].overview.toString(),
-              'rating': item[index].voteAverage.toString(),
-              'year': '2020',
-              'duration': item[index].voteCount.toString(),
-            },
-          );
-        },
+      child: InkWell(
+        onTap: type == 'movie'
+            ? () {
+                Navigator.of(context).pushNamed(
+                  MovieDetailsScreen.routeName,
+                  arguments: {
+                    'id': item[index].id.toString(),
+                    'title': name.toString(),
+                    'imageUrl': url.toString(),
+                    'description': item[index].overview.toString(),
+                    'rating': item[index].voteAverage.toString(),
+                    'year': '2020',
+                    'duration': item[index].voteCount.toString(),
+                  },
+                );
+              }
+            : () {
+                Navigator.of(context).pushNamed(
+                  TvDetailsScreen.routeName,
+                  arguments: {
+                    'id': item[index].id.toString(),
+                    'title': name.toString(),
+                    'imageUrl': url.toString(),
+                    'description': item[index].overview.toString(),
+                    'rating': item[index].voteAverage.toString(),
+                    'year': '2020',
+                    'duration': item[index].voteCount.toString(),
+                  },
+                );
+              },
         child: Column(
           children: <Widget>[
             Card(
@@ -55,7 +73,7 @@ class HorizontalListItem extends StatelessWidget {
               height: 10,
             ),
             Text(
-              item[index].title,
+              name,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

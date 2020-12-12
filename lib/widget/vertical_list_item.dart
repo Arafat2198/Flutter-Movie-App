@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import '../screens/movie_details_screen.dart';
+import '../screens/tv_details_screen.dart';
 
+// ignore: must_be_immutable
 class VerticalListItem extends StatelessWidget {
+  // ignore: non_constant_identifier_names
   final url_header = 'https://image.tmdb.org/t/p/w500';
   final int index;
+  final name;
   String url;
-  List item = [];
-  VerticalListItem(this.index, this.item) {
+  String type;
+  List item;
+  VerticalListItem(this.index, this.item, this.name, this.type) {
     url = url_header + item[index].posterPath;
-    print(url);
   }
 
   @override
@@ -16,26 +20,41 @@ class VerticalListItem extends StatelessWidget {
     return Column(
       children: <Widget>[
         GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(
-              MovieDetailsScreen.routeName,
-              arguments: {
-                'id': item[index].id.toString(),
-                'title': item[index].title.toString(),
-                'imageUrl': url.toString(),
-                'description': item[index].overview.toString(),
-                'rating': item[index].voteAverage.toString(),
-                'year': '2020',
-                'duration': item[index].voteCount.toString(),
-              },
-            );
-          },
+          onTap: type == 'movie'
+              ? () {
+                  Navigator.of(context).pushNamed(
+                    MovieDetailsScreen.routeName,
+                    arguments: {
+                      'id': item[index].id.toString(),
+                      'title': name.toString(),
+                      'imageUrl': url.toString(),
+                      'description': item[index].overview.toString(),
+                      'rating': item[index].voteAverage.toString(),
+                      'year': '2020',
+                      'duration': item[index].voteCount.toString(),
+                    },
+                  );
+                }
+              : () {
+                  Navigator.of(context).pushNamed(
+                    TvDetailsScreen.routeName,
+                    arguments: {
+                      'id': item[index].id.toString(),
+                      'title': name.toString(),
+                      'imageUrl': url.toString(),
+                      'description': item[index].overview.toString(),
+                      'rating': item[index].voteAverage.toString(),
+                      'year': '2020',
+                      'duration': item[index].voteCount.toString(),
+                    },
+                  );
+                },
           child: Card(
             elevation: 5,
             child: Row(
               children: <Widget>[
                 Hero(
-                  tag: item[index].id,
+                  tag: DateTime.now().millisecondsSinceEpoch,
                   child: Container(
                     height: 150,
                     width: 100,
@@ -61,7 +80,7 @@ class VerticalListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          item[index].title,
+                          name,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 16,

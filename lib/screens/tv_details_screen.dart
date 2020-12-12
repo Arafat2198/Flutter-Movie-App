@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import '../widget/review_card.dart';
+import '../widget/horizontal_list_item.dart';
 import '../services/Review_Service.dart';
 import '../services/Recommendations_Service.dart';
-import '../widget/horizontal_list_item.dart';
 import 'dart:async';
 
-class MovieDetailsScreen extends StatefulWidget {
-  static const routeName = '/movie-details';
+class TvDetailsScreen extends StatefulWidget {
+  static const routeName = '/tv-details';
 
   @override
-  _MovieDetailsScreenState createState() => _MovieDetailsScreenState();
+  _TvDetailsScreenState createState() => _TvDetailsScreenState();
 }
 
-class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+class _TvDetailsScreenState extends State<TvDetailsScreen> {
   // ignore: non_constant_identifier_names
   var review = [];
   var recommendations = [];
   var id;
 
   Future fetch() async {
-    final rev = new MovieReview(id);
+    final rev = new TvReview(id);
     review = await rev.getData();
     if (review.length == 0) {
-      // print(" Movie Review API Extraction Unsuccessfull");
+      // print(" Tv Review API Extraction Unsuccessfull");
     } else {
-      // print('Movie Review API Extraction Succeess');
+      // print('TV Review API Extraction Succeess');
       setState(() {});
     }
 
-    final rec = new MovieRecommendations(id);
+    final rec = new TvRecommendations(id);
     recommendations = await rec.getData();
     if (recommendations.length == 0) {
-      // print("Recommendations API Extraction Unsuccessfull");
+      print("Tv Recommendations API Extraction Unsuccessfull");
     } else {
-      // print('Recommendations API Extraction Succeess');
+      print('Tv Recommendations API Extraction Succeess');
       setState(() {});
     }
   }
@@ -224,7 +224,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     ),
                   ),
             SizedBox(
-              height: 40,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -244,8 +244,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
-                      itemBuilder: (ctx, i) => HorizontalListItem(i,
-                          recommendations, recommendations[i].title, 'movie'),
+                      itemBuilder: (ctx, i) => HorizontalListItem(
+                          i, recommendations, recommendations[i].name, 'tv'),
                     ),
                   )
                 : Text(

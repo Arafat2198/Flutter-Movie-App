@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/tv_dashboard_screen.dart';
 
 class CustomListTile extends StatelessWidget {
   final IconData icon;
@@ -19,7 +20,11 @@ class CustomListTile extends StatelessWidget {
         ))),
         child: InkWell(
           splashColor: Colors.teal,
-          onTap: onTap,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              TvDashboardScreen.routeName,
+            );
+          },
           child: Container(
             height: 50,
             child: Row(

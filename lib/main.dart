@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'screens/dashboard_screen.dart';
+import 'screens/tv_dashboard_screen.dart';
+import 'screens/movie_dashboard_screen.dart';
 import './screens/movie_details_screen.dart';
+import './screens/tv_details_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,9 +16,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: DashboardScreen(),
+      home: MovieDashboardScreen(),
       routes: {
         MovieDetailsScreen.routeName: (ctx) => MovieDetailsScreen(),
+        TvDetailsScreen.routeName: (ctx) => TvDetailsScreen(),
+        TvDashboardScreen.routeName: (ctx) => TvDashboardScreen(),
       },
     );
   }

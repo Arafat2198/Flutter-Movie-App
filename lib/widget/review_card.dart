@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class ReviewCard extends StatelessWidget {
   final review;
@@ -7,8 +8,12 @@ class ReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Random rnd = new Random();
+    int min = 5, max = 10;
+    int nums = min + rnd.nextInt(max - min);
+
     return Card(
-      color: Colors.deepOrange,
+      color: Colors.deepPurple,
       child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -24,7 +29,7 @@ class ReviewCard extends StatelessWidget {
                           color: Colors.white,
                         ),
                         Text(
-                          '5.5',
+                          nums.toString(),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 17,
