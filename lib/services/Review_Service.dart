@@ -15,9 +15,10 @@ class MovieReview {
     final response = await http.get(url);
     if (200 == response.statusCode) {
       final movieReview = movieReviewFromJson(response.body);
+      // print('Movie Review Api service Worked ');
       return movieReview.results;
     } else {
-      print('Movie Api service worked ');
+      // print('Movie Review Api service did not work ');
       return [];
     }
   }
@@ -35,8 +36,10 @@ class TvReview {
     final response = await http.get(url);
     if (200 == response.statusCode) {
       final tvReview = tvReviewFromJson(response.body);
+      // print('Tv Review Api service Worked ');
       return tvReview.results;
     } else {
+      // print('Tv Review Api service Did not Work ');
       return [];
     }
   }

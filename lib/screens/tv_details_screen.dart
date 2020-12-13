@@ -31,9 +31,9 @@ class _TvDetailsScreenState extends State<TvDetailsScreen> {
     final rec = new TvRecommendations(id);
     recommendations = await rec.getData();
     if (recommendations.length == 0) {
-      print("Tv Recommendations API Extraction Unsuccessfull");
+      // print("Tv Recommendations API Extraction Unsuccessfull");
     } else {
-      print('Tv Recommendations API Extraction Succeess');
+      // print('Tv Recommendations API Extraction Succeess');
       setState(() {});
     }
   }
@@ -243,7 +243,7 @@ class _TvDetailsScreenState extends State<TvDetailsScreen> {
                     height: 290,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: recommendations.length,
                       itemBuilder: (ctx, i) => HorizontalListItem(
                           i, recommendations, recommendations[i].name, 'tv'),
                     ),

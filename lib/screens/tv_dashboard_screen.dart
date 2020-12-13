@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import '../widget/side_bar.dart';
 import '../services/TvShow_Dashboard_Screen_Service.dart';
+import '../services/Search_Service.dart';
 import '../widget/horizontal_list_item.dart';
 import '../widget/vertical_list_item.dart';
 
@@ -75,7 +76,12 @@ class _TvDashboardScreenState extends State<TvDashboardScreen> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: TvSearch(),
+                );
+              },
             ),
           ],
         ),
@@ -199,5 +205,86 @@ class _TvDashboardScreenState extends State<TvDashboardScreen> {
             ],
           ),
         ));
+  }
+}
+
+class TvSearch extends SearchDelegate<String> {
+  var searchresults = [];
+
+  Future fetchMovie(query) async {
+    final sr = new SearchTv(query.toString());
+    searchresults = await sr.getData();
+    return searchresults;
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // TODO: implement buildActions
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // TODO: implement buildLeading
+    return IconButton(
+        icon: Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          close(context, null);
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    // return Container(
+    //   child: Text(query.toString()),
+    // );
+
+    return FutureBuilder(
+      future: fetchMovie(query),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 1000,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (ctx, i) => VerticalListItem(
+                          i, snapshot.data, snapshot.data[i].name, 'tv'),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    return Container();
   }
 }

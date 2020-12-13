@@ -243,7 +243,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     height: 290,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: recommendations.length,
                       itemBuilder: (ctx, i) => HorizontalListItem(i,
                           recommendations, recommendations[i].title, 'movie'),
                     ),

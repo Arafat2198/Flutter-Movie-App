@@ -51,37 +51,41 @@ class HorizontalListItem extends StatelessWidget {
                   },
                 );
               },
-        child: Column(
-          children: <Widget>[
-            Card(
-              elevation: 10,
-              child: Hero(
-                tag: item[index].id,
-                child: Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(url),
+        child: item.length != 0
+            ? Column(
+                children: <Widget>[
+                  Card(
+                    elevation: 10,
+                    child: Hero(
+                      tag: item[index].id,
+                      child: Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(url),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              )
+            : Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
       ),
     );
   }
