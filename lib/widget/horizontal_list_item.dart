@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/movie_details_screen.dart';
 import '../screens/tv_details_screen.dart';
 
 // import '../model/movie.dart';
@@ -25,7 +24,7 @@ class HorizontalListItem extends StatelessWidget {
         onTap: type == 'movie'
             ? () {
                 Navigator.of(context).pushNamed(
-                  MovieDetailsScreen.routeName,
+                  '/movie-details',
                   arguments: {
                     'id': item[index].id.toString(),
                     'title': name.toString(),
@@ -39,7 +38,7 @@ class HorizontalListItem extends StatelessWidget {
               }
             : () {
                 Navigator.of(context).pushNamed(
-                  TvDetailsScreen.routeName,
+                  '/tv-details',
                   arguments: {
                     'id': item[index].id.toString(),
                     'title': name.toString(),
@@ -75,6 +74,7 @@ class HorizontalListItem extends StatelessWidget {
                   ),
                   Text(
                     name,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

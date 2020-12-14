@@ -23,7 +23,7 @@ class VerticalListItem extends StatelessWidget {
           onTap: type == 'movie'
               ? () {
                   Navigator.of(context).pushNamed(
-                    MovieDetailsScreen.routeName,
+                    '/movie-details',
                     arguments: {
                       'id': item[index].id.toString(),
                       'title': name.toString(),
@@ -37,7 +37,7 @@ class VerticalListItem extends StatelessWidget {
                 }
               : () {
                   Navigator.of(context).pushNamed(
-                    TvDetailsScreen.routeName,
+                    '/tv-details',
                     arguments: {
                       'id': item[index].id.toString(),
                       'title': name.toString(),

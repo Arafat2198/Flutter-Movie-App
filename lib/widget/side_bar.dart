@@ -5,8 +5,9 @@ class CustomListTile extends StatelessWidget {
   final IconData icon;
   final String text;
   final Function onTap; // For a Button to do something hence we have added this
+  final String route;
 
-  CustomListTile(this.icon, this.text, this.onTap);
+  CustomListTile(this.icon, this.text, this.onTap, this.route);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class CustomListTile extends StatelessWidget {
           splashColor: Colors.teal,
           onTap: () {
             Navigator.of(context).pushNamed(
-              TvDashboardScreen.routeName,
+              route,
             );
           },
           child: Container(

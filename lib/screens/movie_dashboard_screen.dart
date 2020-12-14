@@ -102,11 +102,14 @@ class _MovieDashboardScreenState extends State<MovieDashboardScreen> {
                   ),
                 ),
               ),
-              CustomListTile(Icons.person, 'Profile', () => {}),
-              CustomListTile(Icons.tv, 'TV Shows', () => {}),
-              CustomListTile(Icons.theaters_outlined, 'Movies', () => {}),
-              CustomListTile(Icons.bookmark_border, 'My List ', () => {}),
-              CustomListTile(Icons.logout, 'Log Out ', () => {}),
+              CustomListTile(Icons.person, 'Profile', () => {}, '/profile'),
+              CustomListTile(Icons.tv, 'TV Shows', () => {}, '/tv-dashboard'),
+              CustomListTile(Icons.theaters_outlined, 'Movies', () => {},
+                  '/movie-dashboard'),
+              CustomListTile(
+                  Icons.bookmark_border, 'My List ', () => {}, '/tv-dashboard'),
+              CustomListTile(
+                  Icons.logout, 'Log Out ', () => {}, '/tv-dashboard'),
             ],
           ),
         ),
@@ -133,16 +136,13 @@ class _MovieDashboardScreenState extends State<MovieDashboardScreen> {
                 ),
               ),
               Container(
-                height: 300,
+                height: 280,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10,
+                  itemCount: upcoming.length,
                   itemBuilder: (ctx, i) => HorizontalListItem(
                       i, upcoming, upcoming[i].title, 'movie'),
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -234,7 +234,6 @@ class MovieSearch extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
     return IconButton(
         icon: Icon(Icons.arrow_back_ios),
         onPressed: () {
@@ -244,7 +243,6 @@ class MovieSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     // return Container(
     //   child: Text(query.toString()),
     // );
@@ -286,7 +284,6 @@ class MovieSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
     return Container();
   }
 }

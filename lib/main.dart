@@ -3,6 +3,7 @@ import 'screens/tv_dashboard_screen.dart';
 import 'screens/movie_dashboard_screen.dart';
 import './screens/movie_details_screen.dart';
 import './screens/tv_details_screen.dart';
+import './screens/profile.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,9 +19,11 @@ class MyApp extends StatelessWidget {
       ),
       home: MovieDashboardScreen(),
       routes: {
-        MovieDetailsScreen.routeName: (ctx) => MovieDetailsScreen(),
-        TvDetailsScreen.routeName: (ctx) => TvDetailsScreen(),
-        TvDashboardScreen.routeName: (ctx) => TvDashboardScreen(),
+        '/movie-details': (ctx) => MovieDetailsScreen(),
+        '/movie-dashboard': (ctx) => MovieDashboardScreen(),
+        '/tv-details': (ctx) => TvDetailsScreen(),
+        '/tv-dashboard': (ctx) => TvDashboardScreen(),
+        '/profile': (ctx) => HomeView(),
       },
     );
   }

@@ -103,11 +103,14 @@ class _TvDashboardScreenState extends State<TvDashboardScreen> {
                   ),
                 ),
               ),
-              CustomListTile(Icons.person, 'Profile', () => {}),
-              CustomListTile(Icons.tv, 'TV Shows', () => {}),
-              CustomListTile(Icons.theaters_outlined, 'Movies', () => {}),
-              CustomListTile(Icons.bookmark_border, 'My List ', () => {}),
-              CustomListTile(Icons.logout, 'Log Out ', () => {}),
+              CustomListTile(Icons.person, 'Profile', () => {}, '/profile'),
+              CustomListTile(Icons.tv, 'TV Shows', () => {}, '/tv-dashboard'),
+              CustomListTile(Icons.theaters_outlined, 'Movies', () => {},
+                  '/movie-dashboard'),
+              CustomListTile(Icons.bookmark_border, 'My List ', () => {},
+                  '/movie-dashboard'),
+              CustomListTile(
+                  Icons.logout, 'Log Out ', () => {}, '/movie-dashboard'),
             ],
           ),
         ),
@@ -219,7 +222,6 @@ class TvSearch extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
     return [
       IconButton(
         icon: Icon(Icons.clear),
@@ -232,7 +234,6 @@ class TvSearch extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
     return IconButton(
         icon: Icon(Icons.arrow_back_ios),
         onPressed: () {
@@ -242,7 +243,6 @@ class TvSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     // return Container(
     //   child: Text(query.toString()),
     // );
@@ -284,7 +284,6 @@ class TvSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
     return Container();
   }
 }
