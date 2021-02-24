@@ -11,4 +11,4 @@ Rest Api used - https://developers.themoviedb.org/3
 
 
 
-<img src="https://user-images.githubusercontent.com/54267475/98227148-f1ea4500-1f7c-11eb-8535-71f1d373c3e3.jpg" width="500" height="1000"/>
+<img src="https://user-images.githubusercontent.com/54267475/98227148-f1ea4500-1f7c-11eb-8535-71f1d373c3e3.jpg" width="400" height="800"/>
