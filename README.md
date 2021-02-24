@@ -1,7 +1,6 @@
 # Flutter-Movie-App
 Movie & TV Show App Using Dart and Flutter SDK,
 Replica of the IMDB mobile app
-
 Rest Api used - https://developers.themoviedb.org/3
 <img src="https://user-images.githubusercontent.com/54267475/109004427-c4add800-76ce-11eb-9ff1-96057ee1b1f3.png" width="300" height="600"/>
 <img src="https://user-images.githubusercontent.com/54267475/109004430-c5466e80-76ce-11eb-87d7-b47001e6057b.png" width="300" height="600"/>
